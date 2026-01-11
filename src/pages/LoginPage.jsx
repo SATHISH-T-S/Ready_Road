@@ -14,7 +14,6 @@ const LoginPage = () => {
     const validate = () => {
         const newErrors = {};
         if (!formData.email) newErrors.email = 'Email is required';
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
         if (!formData.password) newErrors.password = 'Password is required';
         return newErrors;
     };
@@ -24,64 +23,65 @@ const LoginPage = () => {
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-        } else {
-            // Simulate login
-            console.log('Logged in:', formData);
+            return;
+        }
+
+        // LocalStorage Logic
+        const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = storedUsers.find(u => u.email === formData.email && u.password === formData.password);
+
+        if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
             navigate('/app');
+        } else {
+            setErrors({ email: 'Invalid credentials' });
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-dark p-4 relative">
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/30 rounded-full blur-3xl opacity-50"></div>
-                <div className="absolute bottom-20 right-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl opacity-50"></div>
-            </div>
-
+        <div className="center" style={{ minHeight: '100vh', padding: '20px' }}>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="glass-card w-full max-w-md p-8 rounded-2xl shadow-2xl z-10"
+                className="glass-card"
+                style={{ width: '100%', maxWidth: '400px' }}
             >
-                <h2 className="text-3xl font-bold text-white mb-6 text-center">Welcome Back! 👋</h2>
+                <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem' }}>Welcome Back! 👋</h2>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-gray-300 text-sm font-medium mb-2">Email</label>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label className="input-label">Email</label>
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white/10 border ${errors.email ? 'border-red-500' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
+                            className="input-field"
                             placeholder="user@example.com"
                         />
-                        {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                        {errors.email && <p style={{ color: '#ff4444', fontSize: '0.8rem', marginTop: '4px' }}>{errors.email}</p>}
                     </div>
 
-                    <div>
-                        <label className="block text-gray-300 text-sm font-medium mb-2">Password</label>
+                    <div className="input-group">
+                        <label className="input-label">Password</label>
                         <input
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white/10 border ${errors.password ? 'border-red-500' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
+                            className="input-field"
                             placeholder="••••••••"
                         />
-                        {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+                        {errors.password && <p style={{ color: '#ff4444', fontSize: '0.8rem', marginTop: '4px' }}>{errors.password}</p>}
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full py-3 px-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-lg shadow-lg hover:shadow-primary/40 transform hover:-translate-y-0.5 transition-all duration-200"
-                    >
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
                         Login
                     </button>
                 </form>
 
-                <p className="text-center text-gray-400 mt-6 text-sm">
-                    Don't have an account? <Link to="/register" className="text-primary hover:underline font-medium">Sign Up</Link>
+                <p style={{ textAlign: 'center', marginTop: '1.5rem', color: '#888' }}>
+                    Don't have an account? <Link to="/register" style={{ color: 'var(--primary)' }}>Sign Up</Link>
                 </p>
             </motion.div>
         </div>

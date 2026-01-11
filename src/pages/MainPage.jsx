@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import MealSelector from '../components/MealSelector';
 import ShopCard from '../components/ShopCard';
@@ -73,35 +73,52 @@ const MOCK_SHOPS = [
 const MainPage = () => {
     const [selectedMeal, setSelectedMeal] = useState('Morning');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
 
-    // Filter shops based on selected meal time (mock logic - simply filtering by 'available' property)
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (user) setCurrentUser(user);
+        // Potentially redirect to login if no user
+    }, []);
+
     const filteredShops = MOCK_SHOPS.filter(shop => shop.available === selectedMeal);
 
-    const handleOrder = () => {
+    const handleOrder = (shop) => {
+        // Save order to local storage
+        const newOrder = {
+            id: Date.now(),
+            shopName: shop.name,
+            items: shop.meals, // Simplified: ordering all items for now
+            date: new Date().toISOString(),
+            user: currentUser ? currentUser.email : 'Guest'
+        };
+
+        const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+        localStorage.setItem('orders', JSON.stringify([...storedOrders, newOrder]));
+
         setIsPopupOpen(true);
-        // Auto close after 3 seconds
         setTimeout(() => setIsPopupOpen(false), 3000);
     };
 
     return (
-        <div className="min-h-screen bg-dark pb-20">
-            <Navbar />
+        <div style={{ paddingBottom: '80px' }}>
+            <Navbar user={currentUser} />
 
-            <div className="pt-20 px-4 max-w-7xl mx-auto">
-                <header className="mb-6">
-                    <h1 className="text-3xl font-bold text-white mb-2">Order Fresh Food 🍛</h1>
-                    <p className="text-gray-400">Find the best local tastes near you.</p>
+            <div className="container" style={{ paddingTop: '20px' }}>
+                <header className="mb-4" style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <h1 className="landing-title" style={{ fontSize: '2rem' }}>Order Fresh Food 🍛</h1>
+                    <p style={{ color: '#888' }}>Find the best local tastes near you.</p>
                 </header>
 
                 <MealSelector selectedMeal={selectedMeal} onSelectMeal={setSelectedMeal} />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <div className="shop-grid">
                     {filteredShops.length > 0 ? (
                         filteredShops.map((shop) => (
-                            <ShopCard key={shop.id} shop={shop} onOrder={handleOrder} />
+                            <ShopCard key={shop.id} shop={shop} onOrder={() => handleOrder(shop)} />
                         ))
                     ) : (
-                        <div className="col-span-full text-center py-20 text-gray-500">
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px', color: '#666' }}>
                             <p>No shops available for this time. Try another meal type!</p>
                         </div>
                     )}

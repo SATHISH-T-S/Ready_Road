@@ -1,29 +1,29 @@
-# Roadside Food Delivery App - Implementation Plan
+# Refactoring to Vanilla CSS
 
-## Goal Description
-Update the application to persist data using **LocalStorage**, ensuring that User Registration, Login, and Orders work without a Node.js backend.
+## Goal
+Replace Tailwind CSS classes with standard CSS to resolve styling issues and meet user preference.
 
-## Proposed Changes
+## Changes
 
-### Authentication
-#### [MODIFY] [src/pages/auth/RegisterPage.jsx](file:///home/balachandar/roadside-eats/src/pages/RegisterPage.jsx)
-- **Logic**: On successful registration, append the new user to a `users` array in `localStorage`.
-- **Logic**: Automatically log the user in (set `currentUser`) after registration.
+### 1. Global Styles (`src/index.css`)
+- Define CSS Variables for colors (`--primary`, `--secondary`, etc.).
+- Add Reset and Base styles.
+- Add Component classes:
+  - `.btn`, `.btn-primary`
+  - `.glass-card`, `.glass-panel`
+  - `.input-field`
+  - `.navbar`
+  - `.landing-section`
+  - `.shop-card`
 
-#### [MODIFY] [src/pages/auth/LoginPage.jsx](file:///home/balachandar/roadside-eats/src/pages/LoginPage.jsx)
-- **Logic**: Retrieve `users` from `localStorage`.
-- **Logic**: Validate email/password against stored users.
-- **Logic**: Set `currentUser` in `localStorage` on success.
+### 2. Component Updates
+Replace Tailwind classes with semantic CSS classes in:
+- `src/pages/LandingPage.jsx`
+- `src/components/Navbar.jsx`
+- `src/components/ShopCard.jsx`
+- `src/pages/auth/LoginPage.jsx`
+- `src/pages/auth/RegisterPage.jsx`
+- `src/pages/MainPage.jsx`
 
-### Dashboard & Data
-#### [MODIFY] [src/components/Navbar.jsx](file:///home/balachandar/roadside-eats/src/components/Navbar.jsx)
-- **UI**: Read `currentUser` from `localStorage` to display the real user's name.
-- **Logic**: Add a "Logout" button/functionality (clears `currentUser`).
-
-#### [MODIFY] [src/pages/MainPage.jsx](file:///home/balachandar/roadside-eats/src/pages/MainPage.jsx)
-- **Logic**: When "Confirm Order" is clicked, save the order details to an `orders` array in `localStorage` with a timestamp.
-
-## Verification Plan
-1.  **Registration**: Register as "Balachandar", check Application > LocalStorage in DevTools to see the data.
-2.  **Login**: Logout and try logging in with the created credentials.
-3.  **Persistence**: Refresh the page and ensure the user is still logged in (Navbar shows name).
+## Verification
+- Check visually that the layout and design (colors, glassmorphism) match the original intent but use standard CSS.

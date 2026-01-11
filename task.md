@@ -2,19 +2,13 @@
 
 - [x] Project Setup
     - [x] Initialize React app with Vite
-    - [x] Install dependencies
-    - [x] Configure Tailwind CSS
-    - [x] Set up project structure
-- [x] Landing Page
-    - [x] Implement LandingAnimation component
-    - [x] Create LandingPage
-- [x] Authentication
-    - [x] Create LoginPage
-    - [x] Create RegisterPage
-- [x] Main Page (Dashboard)
-    - [x] Create Components (Navbar, MealSelector, SearchBar, ShopCard, OrderPopup)
-    - [x] Create MainPage container
-- [ ] Navigation
-    - [ ] Update App.jsx with routes
-- [ ] Verification
-    - [ ] Build and test
+    - [x] Dependencies & Config
+- [x] Styling Refactor
+    - [x] Convert Tailwind to Vanilla CSS (`src/index.css`)
+    - [x] Update Components to use standard classes
+- [x] Features
+    - [x] Landing Page & Animation
+    - [x] Auth (Login/Register) with LocalStorage
+    - [x] Dashboard & Orders with LocalStorage
+- [x] Verification
+    - [x] Build passes

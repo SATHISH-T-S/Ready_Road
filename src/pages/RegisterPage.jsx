@@ -15,7 +15,6 @@ const RegisterPage = () => {
         const newErrors = {};
         if (!formData.name) newErrors.name = 'Name is required';
         if (!formData.email) newErrors.email = 'Email is required';
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
         if (!formData.password) newErrors.password = 'Password is required';
         if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
         return newErrors;
@@ -26,89 +25,85 @@ const RegisterPage = () => {
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-        } else {
-            console.log('Registered:', formData);
-            navigate('/app');
+            return;
         }
+
+        // LocalStorage Logic
+        const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+        const newUser = { id: Date.now(), name: formData.name, email: formData.email, password: formData.password };
+
+        localStorage.setItem('users', JSON.stringify([...storedUsers, newUser]));
+        localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+        navigate('/app');
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-dark p-4 relative">
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl opacity-40"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl opacity-40"></div>
-            </div>
-
+        <div className="center" style={{ minHeight: '100vh', padding: '20px' }}>
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="glass-card w-full max-w-md p-8 rounded-2xl shadow-2xl z-10"
+                className="glass-card"
+                style={{ width: '100%', maxWidth: '400px' }}
             >
-                <h2 className="text-3xl font-bold text-white mb-6 text-center">Create Account 🚀</h2>
+                <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem' }}>Create Account 🚀</h2>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-gray-300 text-sm font-medium mb-1">Full Name</label>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label className="input-label">Full Name</label>
                         <input
                             type="text"
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white/10 border ${errors.name ? 'border-red-500' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
-                            placeholder="John Doe"
+                            className="input-field"
                         />
-                        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                        {errors.name && <p style={{ color: '#ff4444', fontSize: '0.8rem' }}>{errors.name}</p>}
                     </div>
 
-                    <div>
-                        <label className="block text-gray-300 text-sm font-medium mb-1">Email</label>
+                    <div className="input-group">
+                        <label className="input-label">Email</label>
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white/10 border ${errors.email ? 'border-red-500' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
-                            placeholder="user@example.com"
+                            className="input-field"
                         />
-                        {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                        {errors.email && <p style={{ color: '#ff4444', fontSize: '0.8rem' }}>{errors.email}</p>}
                     </div>
 
-                    <div>
-                        <label className="block text-gray-300 text-sm font-medium mb-1">Password</label>
+                    <div className="input-group">
+                        <label className="input-label">Password</label>
                         <input
                             type="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white/10 border ${errors.password ? 'border-red-500' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
-                            placeholder="••••••••"
+                            className="input-field"
                         />
-                        {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+                        {errors.password && <p style={{ color: '#ff4444', fontSize: '0.8rem' }}>{errors.password}</p>}
                     </div>
 
-                    <div>
-                        <label className="block text-gray-300 text-sm font-medium mb-1">Confirm Password</label>
+                    <div className="input-group">
+                        <label className="input-label">Confirm Password</label>
                         <input
                             type="password"
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white/10 border ${errors.confirmPassword ? 'border-red-500' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
-                            placeholder="••••••••"
+                            className="input-field"
                         />
-                        {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+                        {errors.confirmPassword && <p style={{ color: '#ff4444', fontSize: '0.8rem' }}>{errors.confirmPassword}</p>}
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full py-3 px-4 mt-2 bg-gradient-to-r from-secondary to-primary text-white font-bold rounded-lg shadow-lg hover:shadow-secondary/40 transform hover:-translate-y-0.5 transition-all duration-200"
-                    >
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
                         Sign Up
                     </button>
                 </form>
 
-                <p className="text-center text-gray-400 mt-6 text-sm">
-                    Already have an account? <Link to="/login" className="text-primary hover:underline font-medium">Log In</Link>
+                <p style={{ textAlign: 'center', marginTop: '1.5rem', color: '#888' }}>
+                    Already have an account? <Link to="/login" style={{ color: 'var(--primary)' }}>Log In</Link>
                 </p>
             </motion.div>
         </div>
