@@ -35,7 +35,7 @@ const RegisterPage = () => {
         localStorage.setItem('users', JSON.stringify([...storedUsers, newUser]));
         localStorage.setItem('currentUser', JSON.stringify(newUser));
 
-        navigate('/app');
+        navigate('/meal-selection');
     };
 
     return (

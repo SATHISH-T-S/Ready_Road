@@ -1,0 +1,434 @@
+[
+    {
+        "id": 1,
+        "name": "Annapoorna Mess",
+        "owner": "Ramesh Kumar",
+        "location": "MK Road, near Bus Stand",
+        "image": "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Idly (2pcs)",
+                "price": 30
+            },
+            {
+                "name": "Pongal",
+                "price": 45
+            },
+            {
+                "name": "Vada",
+                "price": 10
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 2,
+        "name": "Chettinad Spicy Hut",
+        "owner": "Suresh",
+        "location": "Opposite Tech Park",
+        "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Chicken Biryani",
+                "price": 120
+            },
+            {
+                "name": "Parotta (2pcs)",
+                "price": 40
+            },
+            {
+                "name": "Chicken 65",
+                "price": 100
+            }
+        ],
+        "available": "Afternoon"
+    },
+    {
+        "id": 3,
+        "name": "Night Owls Tiffin",
+        "owner": "Lakshmi",
+        "location": "Main Bazaar",
+        "image": "https://images.unsplash.com/photo-1626074353765-517a681e40be?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Dosa",
+                "price": 35
+            },
+            {
+                "name": "Chapati",
+                "price": 40
+            },
+            {
+                "name": "Egg Dosa",
+                "price": 55
+            }
+        ],
+        "available": "Night"
+    },
+    {
+        "id": 4,
+        "name": "Sri Sai Bhavan",
+        "owner": "Ganesh",
+        "location": "Railway Station Rd",
+        "image": "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Filter Coffee",
+                "price": 15
+            },
+            {
+                "name": "Poori Masala",
+                "price": 50
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 5,
+        "name": "Amma Unavagam",
+        "owner": "Govt",
+        "location": "City Center",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Sambar Rice",
+                "price": 20
+            },
+            {
+                "name": "Curd Rice",
+                "price": 15
+            }
+        ],
+        "available": "Afternoon"
+    },
+    {
+        "id": 6,
+        "name": "Moonlight Parotta Stall",
+        "owner": "Bhai",
+        "location": "Bypass Junction",
+        "image": "https://images.unsplash.com/photo-1610192244261-3f33de3f55e0?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Bun Parotta",
+                "price": 40
+            },
+            {
+                "name": "Empty Salna",
+                "price": 0
+            },
+            {
+                "name": "Egg Kothu",
+                "price": 80
+            }
+        ],
+        "available": "Night"
+    },
+    {
+        "id": 7,
+        "name": "Chennai Fast Food",
+        "owner": "Master Murugan",
+        "location": "Market Road",
+        "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Chicken Fried Rice",
+                "price": 90
+            },
+            {
+                "name": "Schezwan Noodles",
+                "price": 100
+            },
+            {
+                "name": "Gobi Manchurian",
+                "price": 70
+            }
+        ],
+        "available": "Night"
+    },
+    {
+        "id": 8,
+        "name": "Dosa Corner",
+        "owner": "Anitha",
+        "location": "Subway Entrance",
+        "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Ghee Roast",
+                "price": 60
+            },
+            {
+                "name": "Onion Uttapam",
+                "price": 50
+            },
+            {
+                "name": "Podhi Dosa",
+                "price": 45
+            }
+        ],
+        "available": "Night"
+    },
+    {
+        "id": 9,
+        "name": "Kothu Power",
+        "owner": "Junaid",
+        "location": "Near Cinema Hall",
+        "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Chicken Kothu Parotta",
+                "price": 110
+            },
+            {
+                "name": "Pepper Chicken",
+                "price": 130
+            },
+            {
+                "name": "Kalakki",
+                "price": 20
+            }
+        ],
+        "available": "Night"
+    },
+    {
+        "id": 10,
+        "name": "Midnight Maggi Point",
+        "owner": "Students Group",
+        "location": "College Road",
+        "image": "https://images.unsplash.com/photo-1621844976779-11ba1ef1eab4?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Cheese Maggi",
+                "price": 50
+            },
+            {
+                "name": "Egg Maggi",
+                "price": 40
+            },
+            {
+                "name": "Masala Tea",
+                "price": 15
+            }
+        ],
+        "available": "Night"
+    },
+    {
+        "id": 11,
+        "name": "Sunrise Tiffins",
+        "owner": "Babu",
+        "location": "East Main Street",
+        "image": "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Vadacurry",
+                "price": 40
+            },
+            {
+                "name": "Rava Dosa",
+                "price": 50
+            },
+            {
+                "name": "Filter Coffee",
+                "price": 20
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 12,
+        "name": "Mylapore Mamis",
+        "owner": "Mami",
+        "location": "Temple Road",
+        "image": "https://images.unsplash.com/photo-1630396825470-302a64010da1?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Adai Avial",
+                "price": 70
+            },
+            {
+                "name": "Podi Idly",
+                "price": 40
+            },
+            {
+                "name": "Filter Coffee",
+                "price": 25
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 13,
+        "name": "Kumbakonam Coffee Bar",
+        "owner": "Raju",
+        "location": "Corner Junction",
+        "image": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Degree Coffee",
+                "price": 25
+            },
+            {
+                "name": "Butter Bun",
+                "price": 20
+            },
+            {
+                "name": "Vada",
+                "price": 10
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 14,
+        "name": "Idly Inba Illam",
+        "owner": "Murugan",
+        "location": "Market Street",
+        "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Mini Idly (14pcs)",
+                "price": 50
+            },
+            {
+                "name": "Sambar Idly",
+                "price": 40
+            },
+            {
+                "name": "Sweet Pongal",
+                "price": 45
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 15,
+        "name": "Healthy Millet Spot",
+        "owner": "Kavitha",
+        "location": "Park View",
+        "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Ragi Dosa",
+                "price": 60
+            },
+            {
+                "name": "Millet Pongal",
+                "price": 70
+            },
+            {
+                "name": "Herbal Tea",
+                "price": 20
+            }
+        ],
+        "available": "Morning"
+    },
+    {
+        "id": 16,
+        "name": "Madurai Muniyandi Vilas",
+        "owner": "Muniyandi",
+        "location": "High Road",
+        "image": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Mutton Biryani",
+                "price": 220
+            },
+            {
+                "name": "Chicken Sukka",
+                "price": 140
+            },
+            {
+                "name": "Parotta",
+                "price": 15
+            }
+        ],
+        "available": "Afternoon"
+    },
+    {
+        "id": 17,
+        "name": "Andhra Spice",
+        "owner": "Reddy",
+        "location": "IT Park",
+        "image": "https://images.unsplash.com/photo-1606471191009-63994c53433b?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Andhra Meals",
+                "price": 150
+            },
+            {
+                "name": "Gongura Chicken",
+                "price": 180
+            },
+            {
+                "name": "Hyderabadi Biryani",
+                "price": 160
+            }
+        ],
+        "available": "Afternoon"
+    },
+    {
+        "id": 18,
+        "name": "Sree Krishna Meals",
+        "owner": "Krishna",
+        "location": "Temple Car St",
+        "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Veg Full Meals",
+                "price": 100
+            },
+            {
+                "name": "Curd Vada",
+                "price": 30
+            },
+            {
+                "name": "Payasam",
+                "price": 40
+            }
+        ],
+        "available": "Afternoon"
+    },
+    {
+        "id": 19,
+        "name": "Nellai Soru",
+        "owner": "Muthu",
+        "location": "South Street",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Fish Curry Rice",
+                "price": 120
+            },
+            {
+                "name": "Prawn Fry",
+                "price": 180
+            },
+            {
+                "name": "Meen Kuzhambu",
+                "price": 80
+            }
+        ],
+        "available": "Afternoon"
+    },
+    {
+        "id": 20,
+        "name": "Hyderabadi Dum",
+        "owner": "Nawaz",
+        "location": "Near Station",
+        "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=400&auto=format&fit=crop",
+        "meals": [
+            {
+                "name": "Chicken Dum Biryani",
+                "price": 180
+            },
+            {
+                "name": "Double Ka Meetha",
+                "price": 60
+            },
+            {
+                "name": "Mirchi Ka Salan",
+                "price": 40
+            }
+        ],
+        "available": "Afternoon"
+    }
+]

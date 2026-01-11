@@ -2,10 +2,32 @@
 
 - [x] Project Setup
     - [x] Initialize React app with Vite
-    - [x] Dependencies & Config
+    - [x] Content & Config
 - [x] Styling Refactor
-    - [x] Convert Tailwind to Vanilla CSS (`src/index.css`)
-    - [x] Update Components to use standard classes
+    - [x] Convert Tailwind to Vanilla CSS
+    - [x] Style Meal Selector as Toggle Bar
+- [x] Enhancements
+    - [x] Fix Search Bar Styling
+    - [x] Manual Meal Tab Selection
+    - [x] Convert Order Popup to Dedicated Page
+    - [x] Remove Location from Cards
+    - [x] Smart Time-Based Default Selection
+    - [x] Enable Shop Search + Food Search
+    - [x] Create Dummy API for Shops
+    - [x] Add Night Shops
+    - [x] Add 5 Morning & 5 Afternoon Shops
+    - [x] Link Meal Selector Categories to JSON
+    - [x] Convert Shop Dialog to Dedicated Page
+    - [x] Add Back Button to Shop Page Action Bar
+    - [x] Style Menu List as Centered Dialog Card
+- [x] Refactor Flow
+    - [x] Create dedicated Meal Selection Page
+    - [x] Update Auth Redirects (Login/Register -> Meal Selection update)
+    - [x] Update MainPage to read selection from LocalStorage
+    - [x] Add Top Corner Meal Change Button (Navbar)
+    - [x] Remove Search Icon from Input
+    - [x] Relocate Search Bar to Dashboard Header
+    - [ ] **Enable Location-Based Search**
 - [x] Features
     - [x] Landing Page & Animation
     - [x] Auth (Login/Register) with LocalStorage

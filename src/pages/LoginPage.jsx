@@ -32,7 +32,7 @@ const LoginPage = () => {
 
         if (user) {
             localStorage.setItem('currentUser', JSON.stringify(user));
-            navigate('/app');
+            navigate('/meal-selection');
         } else {
             setErrors({ email: 'Invalid credentials' });
         }

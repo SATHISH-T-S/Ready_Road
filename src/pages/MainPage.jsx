@@ -1,94 +1,63 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import MealSelector from '../components/MealSelector';
 import ShopCard from '../components/ShopCard';
-import OrderPopup from '../components/OrderPopup';
+import SearchBar from '../components/SearchBar';
 
-const MOCK_SHOPS = [
-    {
-        id: 1,
-        name: "Annapoorna Mess",
-        owner: "Ramesh Kumar",
-        location: "MK Road, near Bus Stand",
-        image: null,
-        meals: [
-            { name: "Idly (2pcs)", price: 30 },
-            { name: "Pongal", price: 45 },
-            { name: "Vada", price: 10 }
-        ],
-        available: "Morning"
-    },
-    {
-        id: 2,
-        name: "Chettinad Spicy Hut",
-        owner: "Suresh",
-        location: "Opposite Tech Park",
-        image: null,
-        meals: [
-            { name: "Chicken Biryani", price: 120 },
-            { name: "Parotta (2pcs)", price: 40 },
-            { name: "Chicken 65", price: 100 }
-        ],
-        available: "Afternoon"
-    },
-    {
-        id: 3,
-        name: "Night Owls Tiffin",
-        owner: "Lakshmi",
-        location: "Main Bazaar",
-        image: null,
-        meals: [
-            { name: "Dosa", price: 35 },
-            { name: "Chapati", price: 40 },
-            { name: "Egg Dosa", price: 55 }
-        ],
-        available: "Night"
-    },
-    {
-        id: 4,
-        name: "Sri Sai Bhavan",
-        owner: "Ganesh",
-        location: "Railway Station Rd",
-        image: null,
-        meals: [
-            { name: "Filter Coffee", price: 15 },
-            { name: "Poori Masala", price: 50 }
-        ],
-        available: "Morning"
-    },
-    {
-        id: 5,
-        name: "Amma Unavagam",
-        owner: "Govt",
-        location: "City Center",
-        image: null,
-        meals: [
-            { name: "Sambar Rice", price: 20 },
-            { name: "Curd Rice", price: 15 }
-        ],
-        available: "Afternoon"
-    }
-];
+import shopsData from '../data/shops.json';
+
+const MOCK_SHOPS = shopsData;
 
 const MainPage = () => {
-    const [selectedMeal, setSelectedMeal] = useState('Morning');
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const navigate = useNavigate();
+
+    // Extract unique meal distinct times from data
+    const mealCategories = [...new Set(MOCK_SHOPS.map(shop => shop.available))];
+    // Sort logic can be added if needed, e.g. Morning -> Afternoon -> Night
+
+    // Determine default meal based on stored selection
+    const getStoredMeal = () => {
+        return localStorage.getItem('selectedMeal');
+    };
+
+    const [selectedMeal, setSelectedMeal] = useState(getStoredMeal());
     const [currentUser, setCurrentUser] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('currentUser'));
         if (user) setCurrentUser(user);
-        // Potentially redirect to login if no user
-    }, []);
 
-    const filteredShops = MOCK_SHOPS.filter(shop => shop.available === selectedMeal);
+        // Redirect if no meal selected
+        if (!selectedMeal) {
+            navigate('/meal-selection');
+        }
+    }, [selectedMeal, navigate]);
+
+    // FILTER: Only show shops for the selected meal time that match the search query
+    const filteredShops = MOCK_SHOPS.filter(shop => {
+        if (!selectedMeal) return false;
+
+        // First filter by time
+        const timeMatch = shop.available === selectedMeal;
+
+        // Then optionally filter by search query
+        if (!searchQuery) return timeMatch;
+
+        const queryMatch = shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            shop.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            shop.meals.some(meal => meal.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        return timeMatch && queryMatch;
+    });
 
     const handleOrder = (shop) => {
-        // Save order to local storage
+        // setSelectedShop(null); // Close modal - This line was commented out or removed in the original context, keeping it as is.
+
         const newOrder = {
             id: Date.now(),
             shopName: shop.name,
-            items: shop.meals, // Simplified: ordering all items for now
+            items: shop.meals,
             date: new Date().toISOString(),
             user: currentUser ? currentUser.email : 'Guest'
         };
@@ -96,8 +65,8 @@ const MainPage = () => {
         const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
         localStorage.setItem('orders', JSON.stringify([...storedOrders, newOrder]));
 
-        setIsPopupOpen(true);
-        setTimeout(() => setIsPopupOpen(false), 3000);
+        // Navigate to the success page
+        navigate('/order-success');
     };
 
     return (
@@ -105,27 +74,42 @@ const MainPage = () => {
             <Navbar user={currentUser} />
 
             <div className="container" style={{ paddingTop: '20px' }}>
-                <header className="mb-4" style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <h1 className="landing-title" style={{ fontSize: '2rem' }}>Order Fresh Food 🍛</h1>
-                    <p style={{ color: '#888' }}>Find the best local tastes near you.</p>
+                <header className="mb-8 flex flex-col md:flex-row items-center justify-between gap-4 mt-8 bg-white/5 p-6 rounded-2xl border border-white/5">
+                    <div className="text-center md:text-left w-full">
+                        <div className="mb-4">
+                            <h1 className="text-2xl font-bold text-white mb-1">
+                                {selectedMeal} Cravings 😋
+                            </h1>
+                            <p className="text-gray-400 text-sm">Best spots open for {selectedMeal}</p>
+                        </div>
+
+                        <div className="w-full max-w-md">
+                            <SearchBar onSearch={setSearchQuery} />
+                        </div>
+                    </div>
                 </header>
 
-                <MealSelector selectedMeal={selectedMeal} onSelectMeal={setSelectedMeal} />
-
                 <div className="shop-grid">
-                    {filteredShops.length > 0 ? (
+                    {!selectedMeal ? (
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px', color: '#aaa' }}>
+                            <p style={{ fontSize: '1.2rem', marginBottom: '10px' }}>Redirecting to selection...</p>
+                        </div>
+                    ) : filteredShops.length > 0 ? (
                         filteredShops.map((shop) => (
-                            <ShopCard key={shop.id} shop={shop} onOrder={() => handleOrder(shop)} />
+                            <ShopCard
+                                key={shop.id}
+                                shop={shop}
+                                onClick={() => navigate(`/shop/${shop.id}`)}
+                            />
                         ))
                     ) : (
                         <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px', color: '#666' }}>
-                            <p>No shops available for this time. Try another meal type!</p>
+                            <p>No shops matching "{searchQuery}" found in {selectedMeal} menu.</p>
+                            <p className="text-sm mt-2">Try switching meal times or searching for something else.</p>
                         </div>
                     )}
                 </div>
             </div>
-
-            <OrderPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
         </div>
     );
 };

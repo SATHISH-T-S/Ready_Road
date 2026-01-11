@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SearchBar from './SearchBar';
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, onSearch }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -16,24 +15,29 @@ const Navbar = ({ user }) => {
 
                 <Link to="/app" className="logo">
                     <div className="logo-icon">R</div>
-                    <span>Roadside Eats</span>
+                    <span className="hidden sm:inline">READY ROAD</span>
                 </Link>
 
-                {/* Hide SearchBar on small screens if needed, or style it to fit */}
-                <div style={{ flex: 1, margin: '0 2rem', maxWidth: '500px' }}>
-                    <SearchBar />
-                </div>
+                <div className="flex items-center gap-3 md:gap-4">
+                    {/* Change Meal Button - Visible on larger screens or as icon on mobile */}
+                    <button
+                        onClick={() => navigate('/meal-selection')}
+                        className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-primary/20 hover:bg-primary/30 text-primary rounded-full text-xs font-bold border border-primary/20 transition-colors"
+                        title="Change Meal Time"
+                    >
+                        <span>↺</span>
+                        <span className="hidden lg:inline">Change Meal</span>
+                    </button>
 
-                <div className="flex items-center gap-4">
-                    <div style={{ textAlign: 'right', display: 'none', flexDirection: 'column', md: { display: 'flex' } }}>
+                    <div className="hidden md:flex flex-col text-right">
                         {user && <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>{user.name}</span>}
                     </div>
 
-                    <div className="logo-icon" style={{ borderRadius: '50%', backgroundColor: '#555', overflow: 'hidden', border: '2px solid var(--primary)' }}>
-                        <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Profile" style={{ width: '100%', height: '100%' }} />
+                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-primary bg-gray-700">
+                        <img src={`https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=random`} alt="Profile" className="w-full h-full object-cover" />
                     </div>
 
-                    <button onClick={handleLogout} style={{ fontSize: '0.8rem', color: '#aaa', marginLeft: '10px' }}>
+                    <button onClick={handleLogout} className="text-sm text-gray-400 hover:text-white ml-2">
                         Logout
                     </button>
                 </div>
